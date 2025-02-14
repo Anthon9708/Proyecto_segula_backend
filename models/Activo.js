@@ -1,26 +1,46 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const DatoMaestro = sequelize.define('DatoMaestro', {
+const Activo = sequelize.define('Activo', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    origen: {
+    nombreActivo: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'origen',
+        field: 'nombre_activo',
     },
-    nombre: {
+    numeroSerie: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'nombre',
+        field: 'numero_serie',
     },
-    tipoDato: {
+    tipoActivo: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'tipo_dato',
+        field: 'tipo_activo',
+    },
+    tipoDispositivo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'tipo_dispositivo',
+    },
+    estado: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'estado',
+    },
+    geofencing: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'fk_geofencing',
+    },
+    layout: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'fk_layout',
     },
     fechaAlta: {
         type: DataTypes.DATE,
@@ -41,8 +61,8 @@ const DatoMaestro = sequelize.define('DatoMaestro', {
       field: 'modificado',
     }
 },{
-    tableName: 'datos_maestros',
+    tableName: 'activos',
     timestamps: true,
 });
 
-module.exports = DatoMaestro;
+module.exports = Activo;

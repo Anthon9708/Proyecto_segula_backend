@@ -7,8 +7,18 @@ const Dato = sequelize.define('Dato', {
     autoIncrement: true,
     primaryKey: true,
   },
-  campo: {
-    type: DataTypes.STRING,
+  fkRegla: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'fk_regla',
+  },
+  fkDatoMaestro: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'fk_dato_maestro',
+  },
+  orden: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   fechaAlta: {
@@ -21,19 +31,17 @@ const Dato = sequelize.define('Dato', {
     allowNull: true,
     field: 'fecha_baja',
   },
-  fkRegla: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'fk_regla',
+  createdAt: {
+    type: DataTypes.DATE,
+    field: 'creado',
   },
-  fkDatoMaestro: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'fk_dato_maestro',
-  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    field: 'modificado',
+  }
 },{
   tableName: 'datos',
-  timestamps: false,
+  timestamps: true,
 });
 
 module.exports = Dato;

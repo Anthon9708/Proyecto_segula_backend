@@ -30,9 +30,17 @@ const Regla = sequelize.define('Regla', {
         allowNull: true,
         field: 'fecha_baja',
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'creado',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'modificado',
+    }
 },{
     tableName: 'reglas',
-    timestamps: false,
+    timestamps: true,
 });
 
 module.exports = Regla;

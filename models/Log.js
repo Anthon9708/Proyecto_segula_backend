@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const DatoMaestro = sequelize.define('DatoMaestro', {
+const Log = sequelize.define('Log', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -12,25 +12,15 @@ const DatoMaestro = sequelize.define('DatoMaestro', {
         allowNull: false,
         field: 'origen',
     },
-    nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: 'nombre',
-    },
-    tipoDato: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: 'tipo_dato',
-    },
-    fechaAlta: {
+    fecha: {
         type: DataTypes.DATE,
-        allowNull: true,
-        field: 'fecha_alta',
+        allowNull: false,
+        field: 'fecha',
     },
-    fechaBaja: {
-        type: DataTypes.DATE,
+    fkDesencadenante: {
+        type: DataTypes.INTEGER,
         allowNull: true,
-        field: 'fecha_baja',
+        field: 'fk_desencadenante',
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -41,8 +31,8 @@ const DatoMaestro = sequelize.define('DatoMaestro', {
       field: 'modificado',
     }
 },{
-    tableName: 'datos_maestros',
+    tableName: 'activos',
     timestamps: true,
 });
 
-module.exports = DatoMaestro;
+module.exports = Log;

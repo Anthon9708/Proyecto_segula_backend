@@ -15,6 +15,10 @@ const Desencadenante = sequelize.define('Desencadenante', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    codigo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     fechaAlta: {
         type: DataTypes.DATE,
         allowNull: true,
@@ -25,9 +29,17 @@ const Desencadenante = sequelize.define('Desencadenante', {
         allowNull: true,
         field: 'fecha_baja',
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'creado',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'modificado',
+    }
 },{
     tableName: 'desencadenantes',
-    timestamps: false,
+    timestamps: true,
 });
 
 module.exports = Desencadenante;
