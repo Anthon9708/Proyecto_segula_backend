@@ -6,7 +6,7 @@ const obtenerDatos = async (req, res) => {
     res.json(datos);
   } catch (error) {
     console.error('Error al obtener los datos:', error);
-    res.status(500).send('Error al obtener los datos en Controlador');
+    res.status(500).send('Error al obtener los datos');
   }
 };
 

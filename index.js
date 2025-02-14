@@ -1,14 +1,12 @@
 const express = require('express');
 const sequelize = require('./config/database');
-const Dato = require('./models/Dato');
-const { obtenerDatos, obtenerDatoPorId } = require('./controllers/DatoController');
+const routes = require('./routes/routes');
 const conexionBD = require('./bd/ConexionBD');
 
 const app = express();
 const port = 3000;
-app.use(express.json());
 
-app.get('/datos', obtenerDatos);
-app.get('/datos/:id', obtenerDatoPorId);
+app.use(express.json());
+app.use('/', routes);
 
 conexionBD(sequelize,app,port);
