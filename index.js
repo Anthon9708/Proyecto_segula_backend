@@ -11,5 +11,4 @@ app.use(express.json());
 app.get('/datos', obtenerDatos);
 app.get('/datos/:id', obtenerDatoPorId);
 
-
 conexionBD(sequelize,app,port);

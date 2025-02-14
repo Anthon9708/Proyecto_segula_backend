@@ -33,10 +33,12 @@ const Dato = sequelize.define('Dato', {
   },
   createdAt: {
     type: DataTypes.DATE,
+    allowNull: true,
     field: 'creado',
   },
   updatedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
     field: 'modificado',
   }
 },{

@@ -50,10 +50,12 @@ const Posicion = sequelize.define('Posicion', {
     },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'creado',
     },
     updatedAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'modificado',
     }
 },{

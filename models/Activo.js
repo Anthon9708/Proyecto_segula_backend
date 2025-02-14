@@ -54,10 +54,12 @@ const Activo = sequelize.define('Activo', {
     },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'creado',
     },
     updatedAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'modificado',
     }
 },{

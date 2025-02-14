@@ -34,10 +34,12 @@ const DatoMaestro = sequelize.define('DatoMaestro', {
     },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'creado',
     },
     updatedAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'modificado',
     }
 },{

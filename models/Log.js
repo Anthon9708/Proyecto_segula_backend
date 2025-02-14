@@ -24,10 +24,12 @@ const Log = sequelize.define('Log', {
     },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'creado',
     },
     updatedAt: {
       type: DataTypes.DATE,
+      allowNull: true,
       field: 'modificado',
     }
 },{

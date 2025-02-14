@@ -1,8 +1,10 @@
+const { Dato } = require('../models/Dato');
+
 const getDatos = async () => {
   try {
     return await Dato.findAll();
   } catch (error) {
-    throw new Error('Error al obtener los datos');
+    throw new Error('Error al obtener los datos en Servicio');
   }
 };
 

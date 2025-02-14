@@ -1,4 +1,4 @@
-const { getDatos, getDatoById } = require('../services/DatoServices');
+const { getDatos, getDatoById } = require('../services/DatoService');
 
 const obtenerDatos = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ const obtenerDatos = async (req, res) => {
     res.json(datos);
   } catch (error) {
     console.error('Error al obtener los datos:', error);
-    res.status(500).send('Error al obtener los datos');
+    res.status(500).send('Error al obtener los datos en Controlador');
   }
 };
 
