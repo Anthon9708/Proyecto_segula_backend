@@ -1,6 +1,6 @@
 const DatoMaestro = require('../models/DatoMaestro');
 
-const getDatosMaestros = async () => {
+const getAll = async () => {
     try {
         return await DatoMaestro.findAll();
     } catch (error) {
@@ -8,7 +8,7 @@ const getDatosMaestros = async () => {
     }
 };
 
-const getDatoMaestroById = async (id) => {
+const getById = async (id) => {
     try {
         const datoMaestro = await DatoMaestro.findByPk(id);
         if (datoMaestro) {
@@ -22,6 +22,6 @@ const getDatoMaestroById = async (id) => {
 };  
 
 module.exports = {
-    getDatosMaestros,
-    getDatoMaestroById,
+    getAll,
+    getById,
 };

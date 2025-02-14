@@ -1,6 +1,6 @@
 const Regla = require('../models/Regla');
 
-const getReglas = async () => {
+const getAll = async () => {
     try {
         return await Regla.findAll();
     } catch (error) {
@@ -8,7 +8,7 @@ const getReglas = async () => {
     }
 };
 
-const getReglaById = async (id) => {
+const getById = async (id) => {
     try {
         const regla = await Regla.findByPk(id);
         if (regla) {
@@ -22,6 +22,6 @@ const getReglaById = async (id) => {
 };  
 
 module.exports = {
-    getReglas,
-    getReglaById,
+    getAll,
+    getById,
 };

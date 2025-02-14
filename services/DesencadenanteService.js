@@ -1,6 +1,6 @@
 const Desencadenante = require('../models/Desencadenante');
 
-const getDesencadenantes = async () => {
+const getAll = async () => {
     try {
         return await Desencadenante.findAll();
     } catch (error) {
@@ -8,7 +8,7 @@ const getDesencadenantes = async () => {
     }
 };
 
-const getDesencadenanteById = async (id) => {
+const getById = async (id) => {
     try {
         const desencadenante = await Desencadenante.findByPk(id);
         if (desencadenante) {
@@ -22,6 +22,6 @@ const getDesencadenanteById = async (id) => {
 };  
 
 module.exports = {
-    getDesencadenantes,
-    getDesencadenanteById,
+    getAll,
+    getById,
 };

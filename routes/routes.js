@@ -1,20 +1,20 @@
 const express = require('express');
-const { obtenerDatos, obtenerDatoPorId } = require('../controllers/DatoController');
-const { obtenerDatosMaestros, obtenerDatoMaestroPorId } = require('./controllers/DatoMaestroController');
-const { obtenerReglas, obtenerReglaPorId } = require('../controllers/ReglaController');
-const { obtenerDesencadenantes, obtenerDesencadenantePorId } = require('../controllers/DesencadenanteController');
+const DatoController = require('../controllers/DatoController');
+const DatoMaestroController = require('../controllers/DatoMaestroController');
+const ReglaController = require('../controllers/ReglaController');
+const DesencadenanteController = require('../controllers/DesencadenanteController');
 const router = express.Router();
 
-router.get('/datos', obtenerDatos);
-router.get('/datos/:id', obtenerDatoPorId);
+router.get('/datos', DatoController.getAll);
+router.get('/datos/:id', DatoController.getById);
 
-router.get('/datosmaestros', obtenerDatosMaestros);
-router.get('/datosmaestros/:id', obtenerDatoMaestroPorId);
+router.get('/datosmaestros', DatoMaestroController.getAll);
+router.get('/datosmaestros/:id', DatoMaestroController.getById);
 
-router.get('/reglas', obtenerDatosMaestros);
-router.get('/reglas/:id', obtenerDatoMaestroPorId);
+router.get('/reglas', ReglaController.getAll);
+router.get('/reglas/:id', ReglaController.getById);
 
-router.get('/desencadenantes', obtenerDesencadenantes);
-router.get('/desencadenantes/:id', obtenerDesencadenantePorId);
+router.get('/desencadenantes', DesencadenanteController.getAll);
+router.get('/desencadenantes/:id', DesencadenanteController.getById);
 
 module.exports = router;
