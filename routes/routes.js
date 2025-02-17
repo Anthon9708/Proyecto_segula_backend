@@ -13,6 +13,8 @@ router.get('/datosmaestros/:id', DatoMaestroController.getById);
 
 router.get('/reglas', ReglaController.getAll);
 router.get('/reglas/:id', ReglaController.getById);
+router.post('/reglas', ReglaController.create);
+router.put('/reglas/:id', ReglaController.update);
 
 router.get('/desencadenantes', DesencadenanteController.getAll);
 router.get('/desencadenantes/:id', DesencadenanteController.getById);

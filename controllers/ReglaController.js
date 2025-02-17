@@ -20,6 +20,26 @@ const getById = async (req, res) => {
     }
 };
 
+const create = async (req, res) => {    
+    try {
+        const nuevaRegla = await ReglaService.create(req.body);
+        res.status(201).json(nuevaRegla);
+    } catch (error) {
+        console.error('Error al crear la regla:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+const update = async (req, res) => {    
+    try {
+        const reglaActualizada = await ReglaService.update(req.params.id, req.body);
+        res.json(reglaActualizada);
+    } catch (error) {
+        console.error('Error al actualizar la regla:', error);
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getAll,
     getById,

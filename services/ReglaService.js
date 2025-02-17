@@ -21,6 +21,28 @@ const getById = async (id) => {
     }
 };  
 
+const create = async (data) => {
+    try {
+        const nuevaRegla = await Regla.create(data);        
+        return nuevaRegla;
+    } catch (error) {
+        throw new Error('Error al crear la regla');
+    }
+}
+
+const update = async (id, data) => {
+    try {
+        const regla = await Regla.findByPk(id);
+        if (!regla) {
+            throw new Error('Regla no encontrada');
+        }
+        const reglaActualizada = await regla.update(data);
+        return reglaActualizada;
+    } catch (error) {
+        throw new Error('Error al actualizar la regla');
+    }
+}
+
 module.exports = {
     getAll,
     getById,
