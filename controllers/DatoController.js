@@ -20,7 +20,29 @@ const getById = async (req, res) => {
     }
 };
 
+const create = async (req, res) => {    
+    try {
+        const nuevoDato = await DatoService.create(req.body);
+        res.status(201).json(nuevoDato);
+    } catch (error) {
+        console.error('Error al crear el dato:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+const update = async (req, res) => {    
+    try {
+        const datoActualizado = await DatoService.update(req.params.id, req.body);
+        res.json(datoActualizado);
+    } catch (error) {
+        console.error('Error al actualizar el dato:', error);
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getAll,
     getById,
+    create,
+    update
 };

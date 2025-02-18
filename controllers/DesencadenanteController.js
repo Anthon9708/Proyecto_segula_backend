@@ -20,7 +20,29 @@ const getById = async (req, res) => {
     }
 };
 
+const create = async (req, res) => {    
+    try {
+        const nuevoDesencadenante = await DesencadenanteService.create(req.body);
+        res.status(201).json(nuevoDesencadenante);
+    } catch (error) {
+        console.error('Error al crear el desencadenante:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+const update = async (req, res) => {    
+    try {
+        const desencadenanteActualizado = await DesencadenanteService.update(req.params.id, req.body);
+        res.json(desencadenanteActualizado);
+    } catch (error) {
+        console.error('Error al actualizar el desencadenanten:', error);
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     getAll,
     getById,
+    create,
+    update
 };
