@@ -57,7 +57,7 @@ const getByIdRegla = async (idRegla) => {
     try {
         return await Dato.findAll({
             where: {
-                fkRegla: idRegla
+                regla: idRegla
             }
         });
     } catch (error) {
