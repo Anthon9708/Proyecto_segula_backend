@@ -15,7 +15,7 @@ const Regla = sequelize.define('Regla', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    fkDesencadenante: {
+    desencadenante: {
         type: DataTypes.INTEGER,
         allowNull: true,
         field: 'fk_desencadenante',

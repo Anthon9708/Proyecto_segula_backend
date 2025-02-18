@@ -7,12 +7,12 @@ const Dato = sequelize.define('Dato', {
     autoIncrement: true,
     primaryKey: true,
   },
-  fkRegla: {
+  regla: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'fk_regla',
   },
-  fkDatoMaestro: {
+  datoMaestro: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'fk_dato_maestro',
