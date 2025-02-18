@@ -53,4 +53,16 @@ const getByFields = async (fields) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields };
+const getByIdRegla = async (idRegla) => {
+    try {
+        return await Dato.findAll({
+            where: {
+                fkRegla: idRegla
+            }
+        });
+    } catch (error) {
+        throw new Error('Error al obtener los datos');
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla };

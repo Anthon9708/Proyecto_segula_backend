@@ -57,4 +57,14 @@ const getByFields = async (req, res) => {
     }
 };
 
-module.exports = { getAll, getById, create, update, getByFields };
+const getByIdRegla = async (req, res) => {
+    try {
+        const datos = await DatoService.getByIdRegla(req.params.id);
+        res.json(datos);
+    } catch (error) {
+        console.error('Error al obtener los datos Controller:', error);
+        res.status(500).send(error.message);
+    }
+};
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla };

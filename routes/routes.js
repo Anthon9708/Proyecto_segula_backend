@@ -11,6 +11,7 @@ router.post('/datos', DatoController.create);
 router.put('/datos/:id', DatoController.update);
 
 router.get('/datosregla', DatoController.getByFields);
+router.get('/datosregla/:id', DatoController.getByIdRegla);
 
 router.get('/datosmaestros', DatoMaestroController.getAll);
 router.get('/datosmaestros/:id', DatoMaestroController.getById);
