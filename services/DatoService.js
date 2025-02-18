@@ -21,7 +21,31 @@ const getById = async (id) => {
     }
 };  
 
+const create = async (data) => {
+    try {
+        const nuevoDato = await Dato.create(data);        
+        return nuevoDato;
+    } catch (error) {
+        throw new Error('Error al crear el dato');
+    }
+}
+
+const update = async (id, data) => {
+    try {
+        const dato = await Dato.findByPk(id);
+        if (!dato) {
+            throw new Error('Dato no encontrado');
+        }
+        const datoActualizado = await dato.update(data);
+        return datoActualizado;
+    } catch (error) {
+        throw new Error('Error al actualizar el dato');
+    }
+}
+
 module.exports = {
     getAll,
     getById,
+    create,
+    update
 };
