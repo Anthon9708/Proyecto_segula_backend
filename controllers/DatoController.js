@@ -40,9 +40,21 @@ const update = async (req, res) => {
     }
 }
 
-module.exports = {
-    getAll,
-    getById,
-    create,
-    update
+const getByFields = async (req, res) => {
+    try {
+        const conditions = {};
+        if (req.query.campo1) {
+            conditions.campo1 = req.query.campo1;
+        }
+        if (req.query.campo2) {
+            conditions.campo2 = req.query.campo2;
+        }
+        const datos = await DatoService.getByFields(conditions);
+        res.json(datos);
+    } catch (error) {
+        console.error('Error al obtener los datos:', error);
+        res.status(500).send(error.message);
+    }
 };
+
+module.exports = { getAll, getById, create, update, getByFields };

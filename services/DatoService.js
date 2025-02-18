@@ -43,9 +43,14 @@ const update = async (id, data) => {
     }
 }
 
-module.exports = {
-    getAll,
-    getById,
-    create,
-    update
-};
+const getByFields = async (fields) => {
+    try {
+        return await Dato.findAll({
+            where: fields
+        });
+    } catch (error) {
+        throw new Error('Error al obtener los datos');
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields };

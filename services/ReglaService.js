@@ -43,9 +43,4 @@ const update = async (id, data) => {
     }
 }
 
-module.exports = {
-    getAll,
-    getById,
-    create,
-    update
-};
+module.exports = { getAll, getById, create, update };
