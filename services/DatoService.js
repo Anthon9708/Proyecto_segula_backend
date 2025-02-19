@@ -1,4 +1,5 @@
 const Dato = require('../models/Dato');
+const DatoMaestro = require('../models/DatoMaestro');
 const sequelize = require('../config/database');
 
 const getAll = async () => {
@@ -91,4 +92,21 @@ const createOrUpdateByIdRegla = async (dataArray) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla };
+const getParamsById = async (id) => {
+    try {
+        const datos = await Dato.findAll({
+            where: { regla: id },
+            include: {
+                model: DatoMaestro,
+                attributes: ['nombre']
+            }
+        });
+        return datos.map(dato => ({
+            nombre: dato.DatoMaestro.nombre
+        }));
+    } catch (error) {
+        throw new Error('Error al obtener los datos');
+    }  
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById };

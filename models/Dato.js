@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const DatoMaestro = require('./DatoMaestro');
+const Regla = require('./Regla');
 
 const Dato = sequelize.define('Dato', {
   id: {
@@ -45,5 +47,8 @@ const Dato = sequelize.define('Dato', {
   tableName: 'datos',
   timestamps: true,
 });
+
+Dato.belongsTo(Regla, { foreignKey: 'regla' });
+Dato.belongsTo(DatoMaestro, { foreignKey: 'datoMaestro' });
 
 module.exports = Dato;

@@ -77,4 +77,14 @@ const createOrUpdateByIdRegla = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla };
+const getParamsById = async (req, res) => {
+    try {
+        const datos = await DatoService.getParamsById(req.params.id);
+        res.json(datos);
+    } catch (error) {
+        console.error('Error al obtener los datos:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById };
