@@ -1,4 +1,5 @@
 const Dato = require('../models/Dato');
+const sequelize = require('../config/database');
 
 const getAll = async () => {
     try {
@@ -65,4 +66,29 @@ const getByIdRegla = async (idRegla) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla };
+const createOrUpdateByIdRegla = async (dataArray) => {
+    const transaction = await sequelize.transaction();
+    try {
+        const updatedDatos = [];
+        for (const data of dataArray) {
+            const { id, ...updateData } = data;
+            if (!id) {
+                const nuevoDato = await Dato.create(updateData, { transaction });
+                updatedDatos.push(nuevoDato);
+            } else {
+                const updatedDato = await Dato.update(updateData, {
+                    where: { id: id },
+                    transaction
+                });
+                updatedDatos.push(updatedDato);
+            }
+        }
+        await transaction.commit();
+        return updatedDatos;
+    } catch (error) {
+        await transaction.rollback();
+        throw new Error('Error al actualizar los datos');
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla };

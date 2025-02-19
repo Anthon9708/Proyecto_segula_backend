@@ -62,9 +62,19 @@ const getByIdRegla = async (req, res) => {
         const datos = await DatoService.getByIdRegla(req.params.id);
         res.json(datos);
     } catch (error) {
-        console.error('Error al obtener los datos Controller:', error);
+        console.error('Error al obtener los datos:', error);
         res.status(500).send(error.message);
     }
 };
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla };
+const createOrUpdateByIdRegla = async (req, res) => {    
+    try {        
+        const updatedDatos = await DatoService.createOrUpdateByIdRegla(req.body);
+        res.status(201).json(updatedDatos);
+    } catch (error) {
+        console.error('Error al actualizar los datos:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla };
