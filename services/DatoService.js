@@ -24,7 +24,8 @@ const getById = async (id) => {
 };  
 
 const create = async (data) => {
-    try {
+    try {        
+        data.fechaAlta = new Date();
         const nuevoDato = await Dato.create(data);        
         return nuevoDato;
     } catch (error) {
@@ -74,6 +75,7 @@ const createOrUpdateByIdRegla = async (dataArray) => {
         for (const data of dataArray) {
             const { id, ...updateData } = data;
             if (!id) {
+                updateData.fechaAlta = new Date();
                 const nuevoDato = await Dato.create(updateData, { transaction });
                 updatedDatos.push(nuevoDato);
             } else {
@@ -106,7 +108,21 @@ const getParamsById = async (id) => {
         }));
     } catch (error) {
         throw new Error('Error al obtener los datos');
-    }  
+    }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById };
+const baja = async (id) => {
+    try {
+        const dato = await Dato.findByPk(id);
+        if (!dato) {
+            throw new Error('Dato no encontrado');
+        }
+        dato.fechaBaja = new Date();
+        await dato.save();
+        return dato;
+    } catch (error) {
+        throw new Error('Error al dar de baja el dato');
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja };

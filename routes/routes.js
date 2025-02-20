@@ -9,6 +9,7 @@ router.get('/datos', DatoController.getAll);
 router.get('/datos/:id', DatoController.getById);
 router.post('/datos', DatoController.create);
 router.put('/datos/:id', DatoController.update);
+router.get('/datos/baja/:id', DatoController.baja);
 
 router.get('/datosregla', DatoController.getByFields);
 router.get('/datosregla/:id', DatoController.getByIdRegla);
@@ -26,6 +27,7 @@ router.get('/reglas', ReglaController.getAll);
 router.get('/reglas/:id', ReglaController.getById);
 router.post('/reglas', ReglaController.create);
 router.put('/reglas/:id', ReglaController.update);
+// router.get('/reglas/baja/:id', ReglaController.baja);
 
 router.get('/desencadenantes', DesencadenanteController.getAll);
 router.get('/desencadenantes/:id', DesencadenanteController.getById);
