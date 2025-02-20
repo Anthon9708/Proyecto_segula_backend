@@ -23,6 +23,7 @@ const getById = async (id) => {
 
 const create = async (data) => {
     try {
+        data.fechaAlta = new Date();
         const nuevoDesencadenante = await Desencadenante.create(data);        
         return nuevoDesencadenante;
     } catch (error) {
@@ -43,4 +44,18 @@ const update = async (id, data) => {
     }
 }
 
-module.exports = { getAll, getById, create, update};
+const baja = async (id) => {
+    try {
+        const desencadenante = await Desencadenante.findByPk(id);
+        if (!desencadenante) {
+            throw new Error('Desencadenante no encontrado');
+        }
+        desencadenante.fechaBaja = new Date();
+        await desencadenante.save();
+        return desencadenante;
+    } catch (error) {
+        throw new Error('Error al dar de baja el desencadenante');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja };

@@ -23,6 +23,7 @@ const getById = async (id) => {
 
 const create = async (data) => {
     try {
+        data.fechaAlta = new Date();
         const nuevaRegla = await Regla.create(data);        
         return nuevaRegla;
     } catch (error) {
@@ -43,4 +44,18 @@ const update = async (id, data) => {
     }
 }
 
-module.exports = { getAll, getById, create, update };
+const baja = async (id) => {
+    try {
+        const regla = await Regla.findByPk(id);
+        if (!regla) {
+            throw new Error('Regla no encontrado');
+        }
+        regla.fechaBaja = new Date();
+        await regla.save();
+        return regla;
+    } catch (error) {
+        throw new Error('Error al dar de baja la regla');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja };

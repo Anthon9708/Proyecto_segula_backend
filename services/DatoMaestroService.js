@@ -23,6 +23,7 @@ const getById = async (id) => {
 
 const create = async (data) => {
     try {
+        data.fechaAlta = new Date();
         const nuevoDato = await DatoMaestro.create(data);        
         return nuevoDato;
     } catch (error) {
@@ -43,4 +44,18 @@ const update = async (id, data) => {
     }
 }
 
-module.exports = { getAll, getById, create, update };
+const baja = async (id) => {
+    try {
+        const dato = await DatoMaestro.findByPk(id);
+        if (!dato) {
+            throw new Error('Dato maestro no encontrado');
+        }
+        dato.fechaBaja = new Date();
+        await dato.save();
+        return dato;
+    } catch (error) {
+        throw new Error('Error al dar de baja el dato maestro');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja };
