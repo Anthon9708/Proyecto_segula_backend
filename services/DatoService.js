@@ -72,6 +72,16 @@ const createOrUpdateByIdRegla = async (dataArray) => {
     const transaction = await sequelize.transaction();
     try {
         const updatedDatos = [];
+        const idsInDataArray = dataArray.map(data => data.id).filter(id => id);
+
+        // Obtener todos los datos que coincidan con la regla
+        const existingDatos = await Dato.findAll({
+            where: {
+                regla: dataArray[0].regla
+            },
+            transaction
+        });
+
         for (const data of dataArray) {
             const { id, ...updateData } = data;
             if (!id) {
@@ -79,11 +89,20 @@ const createOrUpdateByIdRegla = async (dataArray) => {
                 const nuevoDato = await Dato.create(updateData, { transaction });
                 updatedDatos.push(nuevoDato);
             } else {
-                const updatedDato = await Dato.update(updateData, {
-                    where: { id: id },
-                    transaction
-                });
+                const dato = await Dato.findByPk(id, { transaction });
+                if (!dato) {
+                    throw new Error(`Dato con id ${id} no encontrado`);
+                }
+                const updatedDato = await dato.update(updateData, { transaction });
                 updatedDatos.push(updatedDato);
+            }
+        }
+        
+        // Establecer fechaBaja para los datos que no están en dataArray
+        for (const dato of existingDatos) {
+            if (!idsInDataArray.includes(dato.id)) {
+                dato.fechaBaja = new Date();
+                await dato.save({ transaction });
             }
         }
         await transaction.commit();
