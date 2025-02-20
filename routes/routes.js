@@ -10,6 +10,7 @@ router.get('/reglas/:id', ReglaController.getById);
 router.post('/reglas', ReglaController.create);
 router.put('/reglas/:id', ReglaController.update);
 router.get('/reglas/baja/:id', ReglaController.baja);
+router.get('/reglas/alta/:id', ReglaController.alta);
 
 router.get('/datosmaestros', DatoMaestroController.getAll);
 router.get('/datosmaestros/:id', DatoMaestroController.getById);
