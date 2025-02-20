@@ -99,7 +99,7 @@ const baja = async (req, res) => {
 
 const alta = async (req, res) => {
     try {
-        const datoActualizado = await DatoService.baja(req.params.id);
+        const datoActualizado = await DatoService.alta(req.params.id);
         res.json(datoActualizado);
     } catch (error) {
         console.error('Error al dar de alta el dato:', error);

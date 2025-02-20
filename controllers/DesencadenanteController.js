@@ -52,7 +52,7 @@ const baja = async (req, res) => {
 
 const alta = async (req, res) => {
     try {
-        const desencadenanteActualizado = await DesencadenanteService.baja(req.params.id);
+        const desencadenanteActualizado = await DesencadenanteService.alta(req.params.id);
         res.json(desencadenanteActualizado);
     } catch (error) {
         console.error('Error al dar de alta el desencadenante:', error);

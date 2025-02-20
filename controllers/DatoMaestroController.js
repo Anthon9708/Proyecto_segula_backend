@@ -52,7 +52,7 @@ const baja = async (req, res) => {
 
 const alta = async (req, res) => {
     try {
-        const datoActualizado = await DatoMaestroService.baja(req.params.id);
+        const datoActualizado = await DatoMaestroService.alta(req.params.id);
         res.json(datoActualizado);
     } catch (error) {
         console.error('Error al dar de alta el dato maestro:', error);
