@@ -58,4 +58,19 @@ const baja = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja };
+const alta = async (id) => {
+    try {
+        const dato = await DatoMaestro.findByPk(id);
+        if (!dato) {
+            throw new Error('Dato maestro no encontrado');
+        }
+        dato.fechaAlta = new Date();
+        dato.fechaBaja = null;
+        await dato.save();
+        return dato;
+    } catch (error) {
+        throw new Error('Error al dar de alta el dato maestro');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta };

@@ -125,4 +125,19 @@ const baja = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja };
+const alta = async (id) => {
+    try {
+        const dato = await Dato.findByPk(id);
+        if (!dato) {
+            throw new Error('Dato no encontrado');
+        }
+        dato.fechaAlta = new Date();
+        dato.fechaBaja = null;
+        await dato.save();
+        return dato;
+    } catch (error) {
+        throw new Error('Error al dar de alta el dato');
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja, alta };

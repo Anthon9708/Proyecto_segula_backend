@@ -58,4 +58,19 @@ const baja = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja };
+const alta = async (id) => {
+    try {
+        const regla = await Regla.findByPk(id);
+        if (!regla) {
+            throw new Error('Regla no encontrado');
+        }
+        regla.fechaAlta = new Date();
+        regla.fechaBaja = null;
+        await regla.save();
+        return regla;
+    } catch (error) {
+        throw new Error('Error al dar de alta la regla');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta };

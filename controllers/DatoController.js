@@ -97,4 +97,14 @@ const baja = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja };
+const alta = async (req, res) => {
+    try {
+        const datoActualizado = await DatoService.baja(req.params.id);
+        res.json(datoActualizado);
+    } catch (error) {
+        console.error('Error al dar de alta el dato:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja, alta };

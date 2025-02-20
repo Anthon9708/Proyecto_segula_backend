@@ -50,4 +50,14 @@ const baja = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja };
+const alta = async (req, res) => {
+    try {
+        const desencadenanteActualizado = await DesencadenanteService.baja(req.params.id);
+        res.json(desencadenanteActualizado);
+    } catch (error) {
+        console.error('Error al dar de alta el desencadenante:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta };

@@ -58,4 +58,19 @@ const baja = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja };
+const alta = async (id) => {
+    try {
+        const desencadenante = await Desencadenante.findByPk(id);
+        if (!desencadenante) {
+            throw new Error('Desencadenante no encontrado');
+        }
+        desencadenante.fechaAlta = new Date();
+        desencadenante.fechaBaja = null;
+        await desencadenante.save();
+        return desencadenante;
+    } catch (error) {
+        throw new Error('Error al dar de alta el desencadenante');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta };

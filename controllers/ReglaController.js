@@ -50,4 +50,14 @@ const baja = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja };
+const alta = async (req, res) => {
+    try {
+        const reglaActualizada = await ReglaService.alta(req.params.id);
+        res.json(reglaActualizada);
+    } catch (error) {
+        console.error('Error al dar de alta la regla:', error);
+        res.status(500).send(error.message);
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta };
