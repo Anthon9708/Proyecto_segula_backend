@@ -16,8 +16,8 @@ router.get('/datosmaestros', DatoMaestroController.getAll);
 router.get('/datosmaestros/:id', DatoMaestroController.getById);
 router.post('/datosmaestros', DatoMaestroController.create);
 router.put('/datosmaestros/:id', DatoMaestroController.update);
-router.get('/datos/baja/:id', DatoMaestroController.baja);
-router.get('/datos/alta/:id', DatoMaestroController.alta);
+router.get('/datosmaestros/baja/:id', DatoMaestroController.baja);
+router.get('/datosmaestros/alta/:id', DatoMaestroController.alta);
 
 router.get('/desencadenantes', DesencadenanteController.getAll);
 router.get('/desencadenantes/:id', DesencadenanteController.getById);
