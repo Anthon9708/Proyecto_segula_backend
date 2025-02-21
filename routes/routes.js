@@ -3,6 +3,9 @@ const DatoController = require('../controllers/DatoController');
 const DatoMaestroController = require('../controllers/DatoMaestroController');
 const ReglaController = require('../controllers/ReglaController');
 const DesencadenanteController = require('../controllers/DesencadenanteController');
+const ActivoController = require('../controllers/ActivoController');
+const PosicionController = require('../controllers/PosicionController');
+const LogController = require('../controllers/LogController');
 const router = express.Router();
 
 router.get('/reglas', ReglaController.getAll);
