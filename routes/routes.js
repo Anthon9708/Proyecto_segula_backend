@@ -40,4 +40,26 @@ router.get('/datosregla/vaciar/:id', DatoController.bajaAllByIdRegla);
 
 router.get('/datosurl/:id', DatoController.getParamsById);
 
+
+router.get('/activos', ActivoController.getAll);
+router.get('/activos/:id', ActivoController.getById);
+router.post('/activos', ActivoController.create);
+router.put('/activos/:id', ActivoController.update);
+router.put('/activos/baja/:id', ActivoController.baja);
+router.put('/activos/alta/:id', ActivoController.alta);
+
+router.get('/posiciones', PosicionController.getAll);
+router.get('/posiciones/:id', PosicionController.getById);
+router.post('/posiciones', PosicionController.create);
+router.put('/posiciones/:id', PosicionController.update);
+router.put('/posiciones/baja/:id', PosicionController.baja);
+router.put('/posiciones/alta/:id', PosicionController.alta);
+
+router.get('/logs', LogController.getAll);
+router.get('/logs/:id', LogController.getById);
+router.post('/logs', LogController.create);
+router.put('/logs/:id', LogController.update);
+router.put('/logs/baja/:id', LogController.baja);
+router.put('/logs/alta/:id', LogController.alta);
+
 module.exports = router;
