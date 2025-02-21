@@ -22,9 +22,10 @@ const getById = async (id) => {
 };  
 
 const create = async (data) => {
-    try {        
+    try {
         data.fechaAlta = new Date();
-        const nuevoActivo = await Activo.create(data);        
+        const nuevoActivo = await Activo.create(data);
+
         return nuevoActivo;
     } catch (error) {
         throw new Error('Error al crear el activo');

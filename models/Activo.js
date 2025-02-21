@@ -19,27 +19,27 @@ const Activo = sequelize.define('Activo', {
     },
     tipoActivo: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'tipo_activo',
     },
     tipoDispositivo: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'tipo_dispositivo',
     },
     estado: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'estado',
     },
     geofencing: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'fk_geofencing',
     },
     layout: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'fk_layout',
     },
     fechaAlta: {
