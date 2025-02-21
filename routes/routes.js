@@ -9,33 +9,34 @@ router.get('/reglas', ReglaController.getAll);
 router.get('/reglas/:id', ReglaController.getById);
 router.post('/reglas', ReglaController.create);
 router.put('/reglas/:id', ReglaController.update);
-router.get('/reglas/baja/:id', ReglaController.baja);
-router.get('/reglas/alta/:id', ReglaController.alta);
+router.put('/reglas/baja/:id', ReglaController.baja);
+router.put('/reglas/alta/:id', ReglaController.alta);
 
 router.get('/datosmaestros', DatoMaestroController.getAll);
 router.get('/datosmaestros/:id', DatoMaestroController.getById);
 router.post('/datosmaestros', DatoMaestroController.create);
 router.put('/datosmaestros/:id', DatoMaestroController.update);
-router.get('/datosmaestros/baja/:id', DatoMaestroController.baja);
-router.get('/datosmaestros/alta/:id', DatoMaestroController.alta);
+router.put('/datosmaestros/baja/:id', DatoMaestroController.baja);
+router.put('/datosmaestros/alta/:id', DatoMaestroController.alta);
 
 router.get('/desencadenantes', DesencadenanteController.getAll);
 router.get('/desencadenantes/:id', DesencadenanteController.getById);
 router.post('/desencadenantes', DesencadenanteController.create);
 router.put('/desencadenantes/:id', DesencadenanteController.update);
-router.get('/desencadenantes/baja/:id', DesencadenanteController.baja);
-router.get('/desencadenantes/alta/:id', DesencadenanteController.alta);
+router.put('/desencadenantes/baja/:id', DesencadenanteController.baja);
+router.put('/desencadenantes/alta/:id', DesencadenanteController.alta);
 
 router.get('/datos', DatoController.getAll);
 router.get('/datos/:id', DatoController.getById);
 router.post('/datos', DatoController.create);
 router.put('/datos/:id', DatoController.update);
-router.get('/datos/baja/:id', DatoController.baja);
-router.get('/datos/alta/:id', DatoController.alta);
+router.put('/datos/baja/:id', DatoController.baja);
+router.put('/datos/alta/:id', DatoController.alta);
 
 router.get('/datosregla', DatoController.getByFields);
 router.get('/datosregla/:id', DatoController.getByIdRegla);
 router.put('/datosregla', DatoController.createOrUpdateByIdRegla);
+router.get('/datosregla/vaciar/:id', DatoController.bajaAllByIdRegla);
 
 router.get('/datosurl/:id', DatoController.getParamsById);
 

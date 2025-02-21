@@ -77,6 +77,16 @@ const createOrUpdateByIdRegla = async (req, res) => {
     }
 }
 
+const bajaAllByIdRegla = async (req, res) => {    
+    try {        
+        const updatedDatos = await DatoService.bajaAllByIdRegla(req.params.id);
+        res.status(201).json(updatedDatos);
+    } catch (error) {
+        console.error('Error al actualizar los datos:', error);
+        res.status(500).send(error.message);
+    }
+}
+
 const getParamsById = async (req, res) => {
     try {
         const datos = await DatoService.getParamsById(req.params.id);
@@ -107,4 +117,4 @@ const alta = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja, alta };
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, bajaAllByIdRegla, getParamsById, baja, alta };

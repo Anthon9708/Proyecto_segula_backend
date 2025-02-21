@@ -113,6 +113,33 @@ const createOrUpdateByIdRegla = async (dataArray) => {
     }
 }
 
+const bajaAllByIdRegla= async (idRegla) => {
+    const transaction = await sequelize.transaction();
+    try {
+        // Obtener todos los datos que coincidan con la regla
+        const existingDatos = await Dato.findAll({
+            where: {
+                regla: idRegla
+            },
+            transaction
+        });
+        
+        console.log(idRegla);
+        console.log(existingDatos);
+
+        // Establecer fechaBaja para los datos que no están en dataArray
+        for (const dato of existingDatos) {
+            dato.fechaBaja = new Date();
+            await dato.save({ transaction });
+        }
+        await transaction.commit();
+        return idRegla;
+    } catch (error) {
+        await transaction.rollback();
+        throw new Error('Error al actualizar los datos');
+    }
+}
+
 const getParamsById = async (id) => {
     try {
         const datos = await Dato.findAll({
@@ -159,4 +186,4 @@ const alta = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, getParamsById, baja, alta };
+module.exports = { getAll, getById, create, update, getByFields, getByIdRegla, createOrUpdateByIdRegla, bajaAllByIdRegla, getParamsById, baja, alta };
