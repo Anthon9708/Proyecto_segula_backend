@@ -73,4 +73,15 @@ const alta = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta };
+
+const getByFields = async (fields) => {
+    try {
+        return await Regla.findOne({
+            where: fields
+        });
+    } catch (error) {
+        throw new Error('Error al obtener la regla');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, getByFields };

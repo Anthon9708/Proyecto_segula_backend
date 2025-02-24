@@ -1,4 +1,5 @@
 const ReglaService = require('../services/ReglaService');
+const DatoService  = require('../services/DatoService');
 
 const getAll = async (req, res) => {
     try {
@@ -60,4 +61,40 @@ const alta = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta };
+
+function getDatosRegla(id) {
+    try {
+        const datosRegla = DatoService.getParamsById(id);//.filter(dato => !dato.fechaBaja);
+        //datosRegla = (await datosRegla).filter
+        return datosRegla;
+    } catch (error) {
+      console.error('Error al obtener los datos de la regla:', error);
+      return null;
+    }
+  }
+
+  const generateURL = async (id) => {
+    let reglaItem = ReglaService.getById(id);
+
+    if (!reglaItem) {
+      throw new Error('Item no encontrado');
+    }
+
+    let url = reglaItem.cabecera + '?';
+    const datosRegla = await getDatosRegla(id);
+
+    
+    console.log("datos de la regla", datosRegla);
+
+    if (!datosRegla || Object.keys(datosRegla).length === 0) {
+      throw new Error('datosRegla está vacío o no se ha actualizado correctamente');
+    }
+
+    datosRegla.forEach(param => {
+      url += `${param['nombre']}=${encodeURIComponent('DATO')}&`;
+    });
+    url = url.slice(0, -1);
+    //console.log(url);
+  };
+
+module.exports = { getAll, getById, create, update, baja, alta, generateURL };
