@@ -79,7 +79,7 @@ const getFechas = async () => {
             attributes: ['activos', 'posiciones'],
             order: [['creado', 'DESC']]
         });
-        return { activos: log.activos, posiciones: log.posiciones };
+        return { fechaActivos: log.activos, fechaPosiciones: log.posiciones };
     } catch (error) {
         throw new Error('Error al obtener las fechas');
     }

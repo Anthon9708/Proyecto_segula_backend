@@ -1,6 +1,6 @@
 const Activo = require('../models/Activo');
-const mysql = require('mysql2/promise');
-const { Op, sequelize } = require('sequelize');
+const sequelize = require('../config/database');
+const { Op } = require('sequelize');
 
 const getAll = async () => {
     try {
@@ -77,47 +77,29 @@ const alta = async (id) => {
 }
 
 const findByFecha = async (fecha) => {
-    try {
-        // const activos = await Activo.findAll({
-        //     where: {
-        //         creado: {
-        //             [Op.gt]: [fecha, fecha2]
-        //         }
-        //     },
-        //     order: [[sequelize.fn('MAX', sequelize.col('creado')), 'DESC']]
-          
-        // });
-
-        
-        console.log(fecha);
-        const activos = await Activo.findAll({
+    try {    
+        const subquery = sequelize.dialect.queryGenerator.selectQuery('activos', {
+            attributes: [
+                'numero_serie',
+                [sequelize.fn('MAX', sequelize.col('fecha_alta')), 'max_fecha_alta']
+            ],
             where: {
-                fechaAlta: {
+                fecha_alta: {
                     [Op.gt]: fecha
                 }
             },
-            attributes: [
-                [sequelize.literal(`(
-                    SELECT * FROM activos AS a
-                    WHERE a.numeroSerie = activos.numeroSerie
-                    )`), 'id']
-            ],
-            // order: [['creado', 'DESC']]
+            group: ['numero_serie']
+        }).slice(0, -1); // Remove the trailing semicolon
+
+        const activos = await Activo.findAll({
+            where: {
+                [Op.and]: [
+                    sequelize.literal(`(numero_serie, fecha_alta) IN (${subquery})`)
+                ]
+            }
         });
 
-        // const subquery = QueryGenerator.selectQuery('activos', {
-        //     attributes: [
-        //       'id'
-        //     ],
-        //     where: {
-        //       fechaAlta: {
-        //         [Op.gt]: fecha
-        //       }
-        //     }
-        //   });
-
-        console.log(subquery);
-    
+        return activos;
     } catch (error) {
         throw new Error('Error al consultar el activo');
     }

@@ -1,4 +1,7 @@
 const Posicion = require('../models/Posicion');
+const sequelize = require('../config/database');
+const { Op } = require('sequelize');
+
 
 const getAll = async () => {
     try {
@@ -73,4 +76,34 @@ const alta = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta };
+const findByFecha = async (fecha) => {
+    try {    
+        const subquery = sequelize.dialect.queryGenerator.selectQuery('posiciones', {
+            attributes: [
+                'fk_activo',
+                [sequelize.fn('MAX', sequelize.col('fecha_alta')), 'max_fecha_alta']
+            ],
+            where: {
+                fecha_alta: {
+                    [Op.gt]: fecha
+                }
+            },
+            group: ['fk_activo']
+        }).slice(0, -1); // Remove the trailing semicolon
+
+        const posiciones = await Posicion.findAll({
+            where: {
+                [Op.and]: [
+                    sequelize.literal(`(fk_activo, fecha_alta) IN (${subquery})`)
+                ]
+            }
+        });
+
+        return posiciones;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al consultar la posición');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, findByFecha };
