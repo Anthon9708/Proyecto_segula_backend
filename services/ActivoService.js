@@ -1,4 +1,6 @@
 const Activo = require('../models/Activo');
+const mysql = require('mysql2/promise');
+const { Op, sequelize } = require('sequelize');
 
 const getAll = async () => {
     try {
@@ -74,4 +76,51 @@ const alta = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta };
+const findByFecha = async (fecha) => {
+    try {
+        // const activos = await Activo.findAll({
+        //     where: {
+        //         creado: {
+        //             [Op.gt]: [fecha, fecha2]
+        //         }
+        //     },
+        //     order: [[sequelize.fn('MAX', sequelize.col('creado')), 'DESC']]
+          
+        // });
+
+        
+        console.log(fecha);
+        const activos = await Activo.findAll({
+            where: {
+                fechaAlta: {
+                    [Op.gt]: fecha
+                }
+            },
+            attributes: [
+                [sequelize.literal(`(
+                    SELECT * FROM activos AS a
+                    WHERE a.numeroSerie = activos.numeroSerie
+                    )`), 'id']
+            ],
+            // order: [['creado', 'DESC']]
+        });
+
+        // const subquery = QueryGenerator.selectQuery('activos', {
+        //     attributes: [
+        //       'id'
+        //     ],
+        //     where: {
+        //       fechaAlta: {
+        //         [Op.gt]: fecha
+        //       }
+        //     }
+        //   });
+
+        console.log(subquery);
+    
+    } catch (error) {
+        throw new Error('Error al consultar el activo');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, findByFecha };

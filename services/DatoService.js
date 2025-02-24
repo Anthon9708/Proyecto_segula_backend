@@ -123,9 +123,6 @@ const bajaAllByIdRegla= async (idRegla) => {
             },
             transaction
         });
-        
-        console.log(idRegla);
-        console.log(existingDatos);
 
         // Establecer fechaBaja para los datos que no están en dataArray
         for (const dato of existingDatos) {

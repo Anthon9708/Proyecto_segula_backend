@@ -73,4 +73,16 @@ const alta = async (id) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta };
+const getFechas = async () => {
+    try {
+        const log = await Log.findOne({
+            attributes: ['activos', 'posiciones'],
+            order: [['creado', 'DESC']]
+        });
+        return { activos: log.activos, posiciones: log.posiciones };
+    } catch (error) {
+        throw new Error('Error al obtener las fechas');
+    }
+};
+
+module.exports = { getAll, getById, create, update, baja, alta, getFechas };

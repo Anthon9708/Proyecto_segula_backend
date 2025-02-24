@@ -7,15 +7,13 @@ const Log = sequelize.define('Log', {
         autoIncrement: true,
         primaryKey: true,
     },
-    origen: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: 'origen',
-    },
-    fecha: {
+    activos: {
         type: DataTypes.DATE,
         allowNull: false,
-        field: 'fecha',
+    },
+    posiciones: {
+        type: DataTypes.DATE,
+        allowNull: false,
     },
     fkDesencadenante: {
         type: DataTypes.INTEGER,
@@ -33,7 +31,7 @@ const Log = sequelize.define('Log', {
       field: 'modificado',
     }
 },{
-    tableName: 'activos',
+    tableName: 'log',
     timestamps: true,
 });
 
