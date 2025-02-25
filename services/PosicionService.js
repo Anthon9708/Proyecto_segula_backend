@@ -106,4 +106,17 @@ const findByFecha = async (fecha) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta, findByFecha };
+const getValueByField = (id, field) => {
+    try {
+        const posicion = Posicion.findByPk(id);
+        if(!posicion) {
+            throw new Error('Posicion no encontrada');
+        }
+        const value = posicion[field];
+        return value;
+    }catch(error) {
+        throw new Error('Error al obtener el valor de la posicion');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, findByFecha , getValueByField};

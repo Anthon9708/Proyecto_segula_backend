@@ -1,5 +1,7 @@
 const ReglaService = require('../services/ReglaService');
-const DatoService  = require('../services/DatoService');
+const DatoService = require('../services/DatoService');
+const ActivoService = require('../services/ActivoService');
+const PosicionService = require('../services/PosicionService');
 
 const getAll = async (req, res) => {
     try {
@@ -21,7 +23,7 @@ const getById = async (req, res) => {
     }
 };
 
-const create = async (req, res) => {    
+const create = async (req, res) => {
     try {
         const nuevaRegla = await ReglaService.create(req.body);
         res.status(201).json(nuevaRegla);
@@ -31,7 +33,7 @@ const create = async (req, res) => {
     }
 }
 
-const update = async (req, res) => {    
+const update = async (req, res) => {
     try {
         const reglaActualizada = await ReglaService.update(req.params.id, req.body);
         res.json(reglaActualizada);
@@ -64,37 +66,52 @@ const alta = async (req, res) => {
 
 function getDatosRegla(id) {
     try {
-        const datosRegla = DatoService.getParamsById(id);//.filter(dato => !dato.fechaBaja);
-        //datosRegla = (await datosRegla).filter
+        const datosRegla = DatoService.getParamsById(id);
         return datosRegla;
     } catch (error) {
-      console.error('Error al obtener los datos de la regla:', error);
-      return null;
+        console.error('Error al obtener los datos de la regla:', error);
+        return null;
     }
-  }
+}
 
-  const generateURL = async (id) => {
-    let reglaItem = ReglaService.getById(id);
+const getValue = async (id,param) => {
+    try {
+        let value = null;
+        if (param['datosMaestros'].origen === 'Activos') {
+            value = await ActivoService.getValueByField( id ,param['datosMaestros'].nombre);
+        }
+        if (param['datosMaestros'].origen === 'Posiciones') {
+            value = await PosicionService.getValueByField( id ,param['datosMaestros'].nombre);
+        }
+        return value;
+    } catch (error) {
+        console.error('Error al obtener el valor del parámetro:', error);
+        return null;
+    }
+}
 
-    if (!reglaItem) {
-      throw new Error('Item no encontrado');
+const generateURL = async (id , regla) => {
+    try {
+        if (!regla) {
+            throw new Error('Item no encontrado');
+        }
+        let url = regla.cabecera + '?';
+        const datosRegla = await getDatosRegla(regla.id);
+
+        if (!datosRegla || Object.keys(datosRegla).length === 0) {
+            throw new Error('datosRegla está vacío o no se ha actualizado correctamente');
+        }
+        for (const param of datosRegla) {
+            const value = await getValue(id, param); // Usa await aquí
+            console.log(value);
+            url += `${param['datosMaestros'].nombre}=${encodeURIComponent(value)}&`;
+        }
+        url = url.slice(0, -1);
+        console.log(url);
+    } catch (error) {
+        console.error('Error al generar la URL:', error);
     }
 
-    let url = reglaItem.cabecera + '?';
-    const datosRegla = await getDatosRegla(id);
-
-    
-    console.log("datos de la regla", datosRegla);
-
-    if (!datosRegla || Object.keys(datosRegla).length === 0) {
-      throw new Error('datosRegla está vacío o no se ha actualizado correctamente');
-    }
-
-    datosRegla.forEach(param => {
-      url += `${param['nombre']}=${encodeURIComponent('DATO')}&`;
-    });
-    url = url.slice(0, -1);
-    //console.log(url);
-  };
+};
 
 module.exports = { getAll, getById, create, update, baja, alta, generateURL };

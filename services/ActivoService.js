@@ -105,4 +105,18 @@ const findByFecha = async (fecha) => {
     }
 }
 
-module.exports = { getAll, getById, create, update, baja, alta, findByFecha };
+const getValueByField =  async (id, field) => {
+    try {
+        const activo = await Activo.findByPk(id);
+        
+        if(!activo) {
+            throw new Error('Activo no encontrado');
+        }
+        const value = activo[String(field)];
+        return String(value);
+    }catch(error) {
+        throw new Error('Error al obtener el valor del activo');
+    }
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, findByFecha , getValueByField};
