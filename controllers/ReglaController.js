@@ -64,9 +64,9 @@ const alta = async (req, res) => {
 }
 
 
-function getDatosRegla(id) {
+async function getDatosRegla(id) {
     try {
-        const datosRegla = DatoService.getParamsById(id);
+        const datosRegla = await DatoService.getParamsById(id);
         return datosRegla;
     } catch (error) {
         console.error('Error al obtener los datos de la regla:', error);
@@ -103,11 +103,10 @@ const generateURL = async (id , regla) => {
         }
         for (const param of datosRegla) {
             const value = await getValue(id, param); // Usa await aquí
-            console.log(value);
             url += `${param['datosMaestros'].nombre}=${encodeURIComponent(value)}&`;
         }
         url = url.slice(0, -1);
-        console.log(url);
+        return url;
     } catch (error) {
         console.error('Error al generar la URL:', error);
     }

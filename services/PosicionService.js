@@ -89,7 +89,7 @@ const findByFecha = async (fecha) => {
                 }
             },
             group: ['fk_activo']
-        }).slice(0, -1); // Remove the trailing semicolon
+        }).slice(0, -1); 
 
         const posiciones = await Posicion.findAll({
             where: {
@@ -106,14 +106,14 @@ const findByFecha = async (fecha) => {
     }
 }
 
-const getValueByField = (id, field) => {
+const getValueByField = async (id, field) => {
     try {
-        const posicion = Posicion.findByPk(id);
+        const posicion = await Posicion.findByPk(id);
         if(!posicion) {
             throw new Error('Posicion no encontrada');
         }
-        const value = posicion[field];
-        return value;
+        const value = posicion[String(field)];
+        return String(value);
     }catch(error) {
         throw new Error('Error al obtener el valor de la posicion');
     }
