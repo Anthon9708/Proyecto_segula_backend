@@ -81,10 +81,10 @@ const findByFecha = async (fecha) => {
         const subquery = sequelize.dialect.queryGenerator.selectQuery('activos', {
             attributes: [
                 'numero_serie',
-                [sequelize.fn('MAX', sequelize.col('fecha_alta')), 'max_fecha_alta']
+                [sequelize.fn('MAX', sequelize.col('modificado')), 'max_fecha_modificado']
             ],
             where: {
-                fecha_alta: {
+                modificado: {
                     [Op.gt]: fecha
                 }
             },
@@ -93,7 +93,7 @@ const findByFecha = async (fecha) => {
         const activos = await Activo.findAll({
             where: {
                 [Op.and]: [
-                    sequelize.literal(`(numero_serie, fecha_alta) IN (${subquery})`)
+                    sequelize.literal(`(numero_serie, modificado) IN (${subquery})`)
                 ]
             }
         });

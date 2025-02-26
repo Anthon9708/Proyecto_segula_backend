@@ -54,7 +54,6 @@ const init =  () => {
                 if(posicion.tipo === 'Parada'){
                     //Envía URL con la parada como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteParada});
-                    console.log('--- regla ----' ,regla)
                     const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
                     console.log('--parada---'+urlGenerada);
                 }
