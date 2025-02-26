@@ -31,14 +31,18 @@ const init =  () => {
                 if (!activo.fechaBaja) {
                     //Envía URL con el alta como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteAlta});
-                    const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
-                    console.log('--altaActivo---' + urlGenerada);
+                    if (!regla.fechaBaja) {
+                        const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
+                        console.log('--altaActivo---' + urlGenerada);
+                    }
                 }
                 if(activo.fechaBaja){
                     //Envía URL con la baja como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteBaja});
-                    const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
-                    console.log('--bajaActivo---'+urlGenerada);
+                    if (!regla.fechaBaja) {
+                        const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
+                        console.log('--bajaActivo---'+urlGenerada);
+                    }
                 }
             });
             
@@ -46,16 +50,20 @@ const init =  () => {
             posiciones.map(async (posicion) => {
                 if (posicion.tipo === 'Arranque') {
                     //Envía URL con el arranque como desencadenante
-                    const regla = await ReglaService.getByFields({ desencadenante: desencadenanteArranque});
-                    const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
-                    console.log('--arranque---'+urlGenerada);
+                    const regla = await ReglaService.getByFields({ desencadenante: desencadenanteArranque});                    
+                    if (!regla.fechaBaja) {
+                        const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
+                        console.log('--arranque---'+urlGenerada);
+                    }
                 }
                 
                 if(posicion.tipo === 'Parada'){
                     //Envía URL con la parada como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteParada});
-                    const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
-                    console.log('--parada---'+urlGenerada);
+                    if (!regla.fechaBaja) {
+                        const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
+                        console.log('--parada---'+urlGenerada);
+                    }
                 }
             });
 
