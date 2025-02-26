@@ -5,10 +5,11 @@ const PosicionService = require('../services/PosicionService');
 const ReglaService = require('../services/ReglaService');
 const ReglaController = require('../controllers/ReglaController');
 
-const desencadenanteAlta = 12;
-const desencadenanteBaja = 13;
-const desencadenanteArranque = 14;
-const desencadenanteParada = 15;
+const desencadenanteAlta = 1;
+const desencadenanteBaja = 2;
+const desencadenanteArranque = 3;
+const desencadenanteParada = 4;
+const cabecera = 'http://www.url.com';
 const intervalo = 10000;
 
 const init =  () => {
@@ -25,19 +26,18 @@ const init =  () => {
             //Por cada activo
             const activos = await ActivoService.findByFecha(fechaActivos);
             const posiciones = await PosicionService.findByFecha(fechaPosiciones);
-            
             //Con estos datos envío para generar la URL de salida
             activos.map(async (activo) => {
                 if (!activo.fechaBaja) {
                     //Envía URL con el alta como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteAlta});
-                    const urlGenerada = await ReglaController.generateURL(activo.id,regla);
-                    console.log('--altaActivo---'+urlGenerada);
+                    const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
+                    console.log('--altaActivo---' + urlGenerada);
                 }
                 if(activo.fechaBaja){
                     //Envía URL con la baja como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteBaja});
-                    const urlGenerada = await ReglaController.generateURL(activo.id,regla);
+                    const urlGenerada = await ReglaController.generateURL(activo.id,cabecera, regla);
                     console.log('--bajaActivo---'+urlGenerada);
                 }
             });
@@ -47,7 +47,7 @@ const init =  () => {
                 if (posicion.tipo === 'Arranque') {
                     //Envía URL con el arranque como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteArranque});
-                    const urlGenerada = await ReglaController.generateURL(posicion.id,regla);
+                    const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
                     console.log('--arranque---'+urlGenerada);
                 }
                 
@@ -55,7 +55,7 @@ const init =  () => {
                     //Envía URL con la parada como desencadenante
                     const regla = await ReglaService.getByFields({ desencadenante: desencadenanteParada});
                     console.log('--- regla ----' ,regla)
-                    const urlGenerada = await ReglaController.generateURL(posicion.id,regla);
+                    const urlGenerada = await ReglaController.generateURL(posicion.id,cabecera, regla);
                     console.log('--parada---'+urlGenerada);
                 }
             });

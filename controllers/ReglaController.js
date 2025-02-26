@@ -90,12 +90,12 @@ const getValue = async (id,param) => {
     }
 }
 
-const generateURL = async (id , regla) => {
+const generateURL = async (id , cabecera, regla) => {
     try {
         if (!regla) {
             throw new Error('Item no encontrado');
         }
-        let url = regla.cabecera + '?';
+        let url = cabecera +  regla.cabecera + '?';
         const datosRegla = await getDatosRegla(regla.id);
 
         if (!datosRegla || Object.keys(datosRegla).length === 0) {

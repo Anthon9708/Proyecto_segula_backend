@@ -90,7 +90,6 @@ const findByFecha = async (fecha) => {
             },
             group: ['numero_serie']
         }).slice(0, -1); // Remove the trailing semicolon
-
         const activos = await Activo.findAll({
             where: {
                 [Op.and]: [
@@ -98,6 +97,9 @@ const findByFecha = async (fecha) => {
                 ]
             }
         });
+        if(activos.length == 0) {
+            
+        }
 
         return activos;
     } catch (error) {

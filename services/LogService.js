@@ -79,6 +79,9 @@ const getFechas = async () => {
             attributes: ['activos', 'posiciones'],
             order: [['creado', 'DESC']]
         });
+        if (!log) {
+            return { fechaActivos: Date.now(), fechaPosiciones: Date.now() };
+        }
         return { fechaActivos: log.activos, fechaPosiciones: log.posiciones };
     } catch (error) {
         throw new Error('Error al obtener las fechas');
