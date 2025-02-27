@@ -21,11 +21,11 @@ const Posicion = sequelize.define('Posicion', {
         allowNull: false,
     },
     latitud: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 7),
         allowNull: true,
     },
     longitud: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 7),
         allowNull: true,
     },
     geofencing: {

@@ -25,7 +25,8 @@ const getById = async (id) => {
 };  
 
 const create = async (data) => {
-    try {        
+    try {
+        console.log(data);
         data.fechaAlta = new Date();
         const nuevaPosicion = await Posicion.create(data);        
         return nuevaPosicion;

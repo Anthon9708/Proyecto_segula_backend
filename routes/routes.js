@@ -43,7 +43,6 @@ router.get('/datosregla/vaciar/:id', DatoController.bajaAllByIdRegla);
 
 router.get('/datosurl/:id', DatoController.getParamsById);
 
-
 router.get('/activos', ActivoController.getAll);
 router.get('/activos/:id', ActivoController.getById);
 router.post('/activos', ActivoController.create);

@@ -63,7 +63,6 @@ const alta = async (req, res) => {
     }
 }
 
-
 async function getDatosRegla(id) {
     try {
         const datosRegla = await DatoService.getParamsById(id);
