@@ -4,16 +4,21 @@ const ActivoService = require('../services/ActivoService');
 const PosicionService = require('../services/PosicionService');
 const ReglaService = require('../services/ReglaService');
 const ReglaController = require('../controllers/ReglaController');
+const DesencadenanteService = require('../services/DesencadenanteService');
+
+const sequelize = require('../config/database');
+const { Sequelize } = require('sequelize');
 
 const intervalo = 10000;
 
 const procesarReglas = async() => {
-    reglas = ReglaController.getAll().filter(regla => !regla.fechaBaja);
-    reglas.map(regla => {
-        let tabla = regla.tabla;
-        let query = regla.query;
+    const reglas = await ReglaService.getAll();
+    console.log(reglas);
+    const reglasFiltradas = reglas.filter(regla => !regla.fechaBaja);
+    reglasFiltradas.map(regla => {
+        let desencadenante = DesencadenanteService.getById(regla.desencadenante);
 
-        sequelize.query(`SELECT * FROM ${tabla} WHERE ${query}`, { type: Sequelize.QueryTypes.SELECT })
+        sequelize.query(`SELECT * FROM ${desencadenante.tabla} WHERE ${desencadenante.query}`, { type: Sequelize.QueryTypes.SELECT })
         .then(results => {
             console.log(results);
             results.map(async elemento => {
@@ -25,11 +30,6 @@ const procesarReglas = async() => {
             console.error('Error ejecutando la consulta:', error);
         });
     })
-};
-
-const procesarDatos = async(activos, posiciones) => {
-    const urlGenerada = await ReglaController.generateURL(posicion.id, cabecera, regla);
-    console.log('--arranque---' + urlGenerada);
 };
 
 const init = () => {
@@ -51,7 +51,7 @@ const init = () => {
             
             //Con estos datos envío para generar la URL de salida
 
-            procesarReglas();
+            await procesarReglas();
             //await Promise.all([procesarActivos(activos), procesarPosiciones(posiciones)]);
 
             if (activos.length > 0 || posiciones.length > 0) {
