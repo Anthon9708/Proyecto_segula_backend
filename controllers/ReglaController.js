@@ -8,7 +8,6 @@ const getAll = async (req, res) => {
         const reglas = await ReglaService.getAll();
         res.json(reglas);
     } catch (error) {
-        console.error('Error al obtener los reglas:', error);
         res.status(500).send('Error al obtener las reglas');
     }
 };

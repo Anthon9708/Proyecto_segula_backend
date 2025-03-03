@@ -13,11 +13,10 @@ const intervalo = 10000;
 
 const procesarReglas = async() => {
     const reglas = await ReglaService.getAll();
-    console.log(reglas);
     const reglasFiltradas = reglas.filter(regla => !regla.fechaBaja);
-    reglasFiltradas.map(regla => {
-        let desencadenante = DesencadenanteService.getById(regla.desencadenante);
-
+    reglasFiltradas.map(async regla => {
+        let desencadenante = await DesencadenanteService.getById(regla.desencadenante);
+        
         sequelize.query(`SELECT * FROM ${desencadenante.tabla} WHERE ${desencadenante.query}`, { type: Sequelize.QueryTypes.SELECT })
         .then(results => {
             console.log(results);
