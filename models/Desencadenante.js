@@ -19,6 +19,14 @@ const Desencadenante = sequelize.define('Desencadenante', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    tabla: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    query: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     fechaAlta: {
         type: DataTypes.DATE,
         allowNull: true,
