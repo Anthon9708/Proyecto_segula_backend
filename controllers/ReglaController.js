@@ -2,6 +2,9 @@ const ReglaService = require('../services/ReglaService');
 const DatoService = require('../services/DatoService');
 const ActivoService = require('../services/ActivoService');
 const PosicionService = require('../services/PosicionService');
+const DesencadenanteService = require('../services/DesencadenanteService');
+const sequelize = require('../config/database');
+const { Sequelize } = require('sequelize');
 
 const getAll = async (req, res) => {
     try {
@@ -111,4 +114,47 @@ const generateURL = async (id , regla) => {
 
 };
 
-module.exports = { getAll, getById, create, update, baja, alta, generateURL };
+
+const procesarReglas = async(fechaActivos, fechaPosiciones) => {
+    let urls = [];
+    const formattedFechaActivos = formatDate(fechaActivos);
+    const formattedFechaPosiciones = formatDate(fechaPosiciones);
+    const reglas = await ReglaService.getAll();
+    const reglasFiltradas = reglas.filter(regla => !regla.fechaBaja);
+    for (const regla of reglasFiltradas) {
+        try {
+            let desencadenante = await DesencadenanteService.getById(regla.desencadenante);
+            let query = desencadenante.query + " AND modificado > '";
+            query += (desencadenante.tabla == 'activos') ? formattedFechaActivos : formattedFechaPosiciones;
+            query += "';";
+    
+            const results = await sequelize.query(`SELECT * FROM ${desencadenante.tabla} WHERE ${query}`, { type: Sequelize.QueryTypes.SELECT });
+    
+            for (const elemento of results) {
+                try {
+                    const urlGenerada = await generateURL(elemento.id, regla);
+                    urls.push(urlGenerada);
+                } catch (error) {
+                    console.error('Error al generar la URL:', error);
+                }
+            }
+        } catch (error) {
+            console.error('Error ejecutando la consulta:', error);
+        }
+    }
+
+    return urls;
+};
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+module.exports = { getAll, getById, create, update, baja, alta, generateURL, procesarReglas };

@@ -5,7 +5,8 @@ const sequelize = new Sequelize('iolocate_segula', 'segula', 'root', {
   //host: '127.0.0.1',
   port: '3306',
   dialect: 'mysql',
-  logging: false
+  logging: false,
+  timezone: '+01:00'
 });
 
 module.exports = sequelize;
