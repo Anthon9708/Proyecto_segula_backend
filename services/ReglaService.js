@@ -1,5 +1,8 @@
 const Regla = require('../models/Regla');
 
+/**
+ * Obtiene todas las reglas 
+ */
 const getAll = async () => {
     try {
         return await Regla.findAll();
@@ -8,6 +11,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ * Obtiene una regla por su id  
+ */
 const getById = async (id) => {
     try {
         const regla = await Regla.findByPk(id);
@@ -21,6 +27,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea una regla  
+ */
 const create = async (data) => {
     try {
         data.fechaAlta = new Date();
@@ -31,6 +40,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza una regla   
+ */
 const update = async (id, data) => {
     try {
         const regla = await Regla.findByPk(id);
@@ -44,6 +56,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja una regla   
+ */
 const baja = async (id) => {
     try {
         const regla = await Regla.findByPk(id);
@@ -58,6 +73,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta una regla 
+ */
 const alta = async (id) => {
     try {
         const regla = await Regla.findByPk(id);
@@ -73,7 +91,9 @@ const alta = async (id) => {
     }
 }
 
-
+/**
+ * Obtiene una regla por sus campos   
+ */
 const getByFields = async (fields) => {
     try {
         return await Regla.findOne({

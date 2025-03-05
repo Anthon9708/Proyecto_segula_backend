@@ -1,5 +1,8 @@
 const Desencadenante = require('../models/Desencadenante');
 
+/**
+ *  Obtiene todos los desencadenantes
+ */
 const getAll = async () => {
     try {
         return await Desencadenante.findAll();
@@ -8,6 +11,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ *  Obtiene un desencadenante por su id 
+ */
 const getById = async (id) => {
     try {
         const desencadenante = await Desencadenante.findByPk(id);
@@ -21,6 +27,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ *  Crea un desencadenante 
+ */
 const create = async (data) => {
     try {
         data.fechaAlta = new Date();
@@ -31,6 +40,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza un desencadenante  
+ */
 const update = async (id, data) => {
     try {
         const desencadenante = await Desencadenante.findByPk(id);
@@ -44,6 +56,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja un desencadenante  
+ */
 const baja = async (id) => {
     try {
         const desencadenante = await Desencadenante.findByPk(id);

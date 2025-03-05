@@ -1,5 +1,8 @@
 const DatoService = require('../services/DatoService');
 
+/**
+ * Obtener todos los datos.
+*/
 const getAll = async (req, res) => {
     try {
         const datos = await DatoService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener un dato por ID.
+*/
 const getById = async (req, res) => {
     try {
         const dato = await DatoService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear un nuevo dato.
+ */
 const create = async (req, res) => {    
     try {
         const nuevoDato = await DatoService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar un dato por ID.
+ */
 const update = async (req, res) => {    
     try {
         const datoActualizado = await DatoService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * obtener datos por campos específicos.
+*/
 const getByFields = async (req, res) => {
     try {
         const conditions = {};
@@ -57,6 +72,9 @@ const getByFields = async (req, res) => {
     }
 };
 
+/**
+ * obtener datos por ID de regla.
+*/
 const getByIdRegla = async (req, res) => {
     try {
         const datos = await DatoService.getByIdRegla(req.params.id);
@@ -67,6 +85,9 @@ const getByIdRegla = async (req, res) => {
     }
 };
 
+/**
+ * Crear o actualizar un dato por ID de regla. 
+*/
 const createOrUpdateByIdRegla = async (req, res) => {    
     try {        
         const updatedDatos = await DatoService.createOrUpdateByIdRegla(req.body);
@@ -77,6 +98,9 @@ const createOrUpdateByIdRegla = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja todos los datos por ID de regla. 
+*/
 const bajaAllByIdRegla = async (req, res) => {    
     try {        
         const updatedDatos = await DatoService.bajaAllByIdRegla(req.params.id);
@@ -87,6 +111,9 @@ const bajaAllByIdRegla = async (req, res) => {
     }
 }
 
+/**
+ * Obtener parámetros por ID. 
+*/
 const getParamsById = async (req, res) => {
     try {
         const datos = await DatoService.getParamsById(req.params.id);
@@ -97,6 +124,9 @@ const getParamsById = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja un dato por ID. 
+*/
 const baja = async (req, res) => {
     try {
         const datoActualizado = await DatoService.baja(req.params.id);
@@ -107,6 +137,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta un dato por ID. 
+*/
 const alta = async (req, res) => {
     try {
         const datoActualizado = await DatoService.alta(req.params.id);

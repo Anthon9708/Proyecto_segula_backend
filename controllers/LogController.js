@@ -1,5 +1,8 @@
 const LogService = require('../services/LogService');
 
+/**
+ * Obtener todos los logs. 
+*/
 const getAll = async (req, res) => {
     try {
         const logs = await LogService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener un log por ID. 
+*/
 const getById = async (req, res) => {
     try {
         const log = await LogService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear un nuevo log. 
+*/
 const create = async (req, res) => {    
     try {
         const nuevoLog = await LogService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar un log por ID. 
+*/
 const update = async (req, res) => {    
     try {
         const logActualizado = await LogService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja un log por ID. 
+*/
 const baja = async (req, res) => {
     try {
         const logActualizado = await LogService.baja(req.params.id);
@@ -50,6 +65,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta un log por ID. 
+*/
 const alta = async (req, res) => {
     try {
         const logActualizado = await LogService.alta(req.params.id);

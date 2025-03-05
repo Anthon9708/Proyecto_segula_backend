@@ -6,6 +6,9 @@ const DesencadenanteService = require('../services/DesencadenanteService');
 const sequelize = require('../config/database');
 const { Sequelize } = require('sequelize');
 
+/**
+ * Obtener todas las reglas.
+ */
 const getAll = async (req, res) => {
     try {
         const reglas = await ReglaService.getAll();
@@ -15,6 +18,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ *  Obtener una regla por ID.
+ */
 const getById = async (req, res) => {
     try {
         const regla = await ReglaService.getById(req.params.id);
@@ -25,6 +31,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear una nueva regla.
+ */
 const create = async (req, res) => {
     try {
         const nuevaRegla = await ReglaService.create(req.body);
@@ -35,6 +44,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar una regla por ID. 
+ */
 const update = async (req, res) => {
     try {
         const reglaActualizada = await ReglaService.update(req.params.id, req.body);
@@ -45,6 +57,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ *  Dar de baja una regla por ID.
+ */
 const baja = async (req, res) => {
     try {
         const reglaActualizada = await ReglaService.baja(req.params.id);
@@ -55,6 +70,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta una regla por ID.
+ */
 const alta = async (req, res) => {
     try {
         const reglaActualizada = await ReglaService.alta(req.params.id);
@@ -65,6 +83,9 @@ const alta = async (req, res) => {
     }
 }
 
+/**
+ * Obtener los datos de una regla por ID. 
+ */
 async function getDatosRegla(id) {
     try {
         const datosRegla = await DatoService.getParamsById(id);
@@ -75,6 +96,9 @@ async function getDatosRegla(id) {
     }
 }
 
+/**
+ * Obtener el valor de un parámetro. 
+ */
 const getValue = async (id,param) => {
     try {
         let value = null;
@@ -91,6 +115,9 @@ const getValue = async (id,param) => {
     }
 }
 
+/**
+ * Generar una URL basada en una regla y un ID.
+ */
 const generateURL = async (id , regla) => {
     try {
         if (!regla) {
@@ -114,7 +141,9 @@ const generateURL = async (id , regla) => {
 
 };
 
-
+/**
+ * Procesar reglas basadas en fechas de activos y posiciones.
+*/
 const procesarReglas = async(fechaActivos, fechaPosiciones) => {
     let urls = [];
     const formattedFechaActivos = formatDate(fechaActivos);
@@ -146,6 +175,9 @@ const procesarReglas = async(fechaActivos, fechaPosiciones) => {
     return urls;
 };
 
+/**
+ * Formatear una fecha a una cadena en formato 'YYYY-MM-DD HH:mm:ss'.
+*/
 function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');

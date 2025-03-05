@@ -1,5 +1,8 @@
 const Log = require('../models/Log');
 
+/**
+ * Obtiene todos los logs 
+ */
 const getAll = async () => {
     try {
         return await Log.findAll();
@@ -8,6 +11,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ * Obtiene un log por su id 
+ */
 const getById = async (id) => {
     try {
         const log = await Log.findByPk(id);
@@ -21,6 +27,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea un log 
+ */
 const create = async (data) => {
     try {        
         data.fechaAlta = new Date();
@@ -31,6 +40,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza un log 
+ */
 const update = async (id, data) => {
     try {
         const log = await Log.findByPk(id);
@@ -44,6 +56,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja un log 
+ */
 const baja = async (id) => {
     try {
         const log = await Log.findByPk(id);
@@ -58,6 +73,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta un log 
+ */
 const alta = async (id) => {
     try {
         const log = await Log.findByPk(id);
@@ -73,6 +91,9 @@ const alta = async (id) => {
     }
 }
 
+/**
+ * Obtiene las fechas de los logs de activos y posiciones 
+ */
 const getFechas = async () => {
     try {
         const log = await Log.findOne({

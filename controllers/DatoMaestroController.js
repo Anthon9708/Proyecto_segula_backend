@@ -1,5 +1,8 @@
 const DatoMaestroService = require('../services/DatoMaestroService');
 
+/**
+ * Obtener todos los datos maestros. 
+*/
 const getAll = async (req, res) => {
     try {
         const datos = await DatoMaestroService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener un dato maestro por ID. 
+*/
 const getById = async (req, res) => {
     try {
         const dato = await DatoMaestroService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear un nuevo dato maestro. 
+*/
 const create = async (req, res) => {    
     try {
         const nuevoDato = await DatoMaestroService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar un dato maestro por ID. 
+*/
 const update = async (req, res) => {    
     try {
         const datoActualizado = await DatoMaestroService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja un dato maestro por ID. 
+*/
 const baja = async (req, res) => {
     try {
         const datoActualizado = await DatoMaestroService.baja(req.params.id);
@@ -50,6 +65,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta un dato maestro por ID. 
+*/
 const alta = async (req, res) => {
     try {
         const datoActualizado = await DatoMaestroService.alta(req.params.id);

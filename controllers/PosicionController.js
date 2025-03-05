@@ -1,5 +1,8 @@
 const PosicionService = require('../services/PosicionService');
 
+/**
+ * Obtener todas las posiciones.
+ */
 const getAll = async (req, res) => {
     try {
         const posiciones = await PosicionService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener una posicion por su id.
+ */
 const getById = async (req, res) => {
     try {
         const posicion = await PosicionService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear una nueva posicion.
+ */
 const create = async (req, res) => {    
     try {
         const nuevaPosicion = await PosicionService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar una posicion.
+ */
 const update = async (req, res) => {    
     try {
         const posicionActualizada = await PosicionService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja una posicion.
+ */
 const baja = async (req, res) => {
     try {
         const posicionActualizada = await PosicionService.baja(req.params.id);
@@ -50,6 +65,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ *  Dar de alta una posicion.
+ */
 const alta = async (req, res) => {
     try {
         const posicionActualizada = await PosicionService.alta(req.params.id);

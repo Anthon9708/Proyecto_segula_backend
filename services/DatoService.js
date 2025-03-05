@@ -3,6 +3,9 @@ const DatoMaestro = require('../models/DatoMaestro');
 const sequelize = require('../config/database');
 const { Op } = require('sequelize');
 
+/**
+ * Obtiene todos los datos 
+ */
 const getAll = async () => {
     try {
         return await Dato.findAll();
@@ -11,6 +14,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ * Obtiene un dato por su id 
+ */
 const getById = async (id) => {
     try {
         const dato = await Dato.findByPk(id);
@@ -24,6 +30,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea un dato 
+ */
 const create = async (data) => {
     try {        
         data.fechaAlta = new Date();
@@ -34,6 +43,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza un dato 
+ */
 const update = async (id, data) => {
     try {
         const dato = await Dato.findByPk(id);
@@ -47,6 +59,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Obtiene los datos por campos específ 
+ */
 const getByFields = async (fields) => {
     try {
         return await Dato.findAll({
@@ -57,6 +72,9 @@ const getByFields = async (fields) => {
     }
 }
 
+/**
+ * Obtiene los datos por id de regla 
+ */
 const getByIdRegla = async (idRegla) => {
     try {
         return await Dato.findAll({
@@ -69,6 +87,9 @@ const getByIdRegla = async (idRegla) => {
     }
 }
 
+/**
+ * Crea o actualiza los datos por id de regla 
+ */
 const createOrUpdateByIdRegla = async (dataArray) => {
     const transaction = await sequelize.transaction();
     try {
@@ -138,6 +159,9 @@ const bajaAllByIdRegla= async (idRegla) => {
     }
 }
 
+/**
+ * Obtiene los datos por id de regla  
+ */
 const getParamsById = async (id) => {
     try {
         const datos = await Dato.findAll({
@@ -159,6 +183,9 @@ const getParamsById = async (id) => {
     }
 }
 
+/**
+ * Da de baja un dato  
+ */
 const baja = async (id) => {
     try {
         const dato = await Dato.findByPk(id);
@@ -173,6 +200,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta 
+ */
 const alta = async (id) => {
     try {
         const dato = await Dato.findByPk(id);

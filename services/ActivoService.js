@@ -2,6 +2,9 @@ const Activo = require('../models/Activo');
 const sequelize = require('../config/database');
 const { Op } = require('sequelize');
 
+/**
+ *  Obtiene todos los activos
+ */
 const getAll = async () => {
     try {
         return await Activo.findAll();
@@ -10,6 +13,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ *  Obtiene un activo por su id
+ */
 const getById = async (id) => {
     try {
         const activo = await Activo.findByPk(id);
@@ -23,6 +29,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea un activo
+ */
 const create = async (data) => {
     try {
         data.fechaAlta = new Date();
@@ -34,6 +43,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza un activo 
+ */
 const update = async (id, data) => {
     try {
         const activo = await Activo.findByPk(id);
@@ -47,6 +59,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja un activo 
+ */
 const baja = async (id) => {
     try {
         const activo = await Activo.findByPk(id);
@@ -61,6 +76,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta un activo 
+ */
 const alta = async (id) => {
     try {
         const activo = await Activo.findByPk(id);
@@ -76,6 +94,9 @@ const alta = async (id) => {
     }
 }
 
+/**
+ * Obtiene los activos que han sido modificados después de una fecha
+ */
 const findByFecha = async (fecha) => {
     try {    
         const subquery = sequelize.dialect.queryGenerator.selectQuery('activos', {
@@ -89,7 +110,7 @@ const findByFecha = async (fecha) => {
                 }
             },
             group: ['numero_serie']
-        }).slice(0, -1); // Remove the trailing semicolon
+        }).slice(0, -1);
         const activos = await Activo.findAll({
             where: {
                 [Op.and]: [
@@ -107,6 +128,9 @@ const findByFecha = async (fecha) => {
     }
 }
 
+/**
+ * Obtener el valor de un campo específico de un activo por ID.
+ */
 const getValueByField =  async (id, field) => {
     try {
         const activo = await Activo.findByPk(id);

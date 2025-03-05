@@ -1,5 +1,8 @@
 const DesencadenanteService = require('../services/DesencadenanteService');
 
+/**
+ * Obtener todos los desencadenantes. 
+*/
 const getAll = async (req, res) => {
     try {
         const desencadenantes = await DesencadenanteService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener un desencadenante por ID. 
+*/
 const getById = async (req, res) => {
     try {
         const desencadenante = await DesencadenanteService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear un nuevo desencadenante. 
+*/
 const create = async (req, res) => {    
     try {
         const nuevoDesencadenante = await DesencadenanteService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar un desencadenante por ID. 
+*/
 const update = async (req, res) => {    
     try {
         const desencadenanteActualizado = await DesencadenanteService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja un desencadenante por ID. 
+*/
 const baja = async (req, res) => {
     try {
         const desencadenanteActualizado = await DesencadenanteService.baja(req.params.id);
@@ -50,6 +65,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta un desencadenante por ID. 
+*/
 const alta = async (req, res) => {
     try {
         const desencadenanteActualizado = await DesencadenanteService.alta(req.params.id);

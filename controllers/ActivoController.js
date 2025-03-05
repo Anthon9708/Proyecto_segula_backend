@@ -1,5 +1,8 @@
 const ActivoService = require('../services/ActivoService');
 
+/**
+ * Obtener todos los activos.
+*/
 const getAll = async (req, res) => {
     try {
         const activos = await ActivoService.getAll();
@@ -10,6 +13,9 @@ const getAll = async (req, res) => {
     }
 };
 
+/**
+ * Obtener un activo por ID.
+*/
 const getById = async (req, res) => {
     try {
         const activo = await ActivoService.getById(req.params.id);
@@ -20,6 +26,9 @@ const getById = async (req, res) => {
     }
 };
 
+/**
+ * Crear un nuevo activo.
+ */
 const create = async (req, res) => {    
     try {
         const nuevoActivo = await ActivoService.create(req.body);
@@ -30,6 +39,9 @@ const create = async (req, res) => {
     }
 }
 
+/**
+ * Actualizar un activo por ID.
+ */
 const update = async (req, res) => {    
     try {
         const activoActualizado = await ActivoService.update(req.params.id, req.body);
@@ -40,6 +52,9 @@ const update = async (req, res) => {
     }
 }
 
+/**
+ * Dar de baja un activo por ID.
+*/
 const baja = async (req, res) => {
     try {
         const activoActualizado = await ActivoService.baja(req.params.id);
@@ -50,6 +65,9 @@ const baja = async (req, res) => {
     }
 }
 
+/**
+ * Dar de alta un activo por ID.
+*/
 const alta = async (req, res) => {
     try {
         const activoActualizado = await ActivoService.alta(req.params.id);

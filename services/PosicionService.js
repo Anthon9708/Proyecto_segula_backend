@@ -2,7 +2,9 @@ const Posicion = require('../models/Posicion');
 const sequelize = require('../config/database');
 const { Op } = require('sequelize');
 
-
+/**
+ * Obtiene todas las posiciones 
+ */
 const getAll = async () => {
     try {
         return await Posicion.findAll();
@@ -11,6 +13,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ * Obtiene una posicion por su id 
+ */
 const getById = async (id) => {
     try {
         const posicion = await Posicion.findByPk(id);
@@ -24,6 +29,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea una posicion 
+ */
 const create = async (data) => {
     try {
         data.fechaAlta = new Date();
@@ -34,6 +42,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ *  Actualiza una posicion 
+ */
 const update = async (id, data) => {
     try {
         const posicion = await Posicion.findByPk(id);
@@ -47,6 +58,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja una posicion  
+ */
 const baja = async (id) => {
     try {
         const posicion = await Posicion.findByPk(id);
@@ -61,6 +75,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta una posicion 
+ */
 const alta = async (id) => {
     try {
         const posicion = await Posicion.findByPk(id);
@@ -76,6 +93,9 @@ const alta = async (id) => {
     }
 }
 
+/**
+ * Obtiene las posiciones que se modificaron después de la fecha pasada por parámetro 
+ */
 const findByFecha = async (fecha) => {
     try {    
         const subquery = sequelize.dialect.queryGenerator.selectQuery('posiciones', {
@@ -106,6 +126,9 @@ const findByFecha = async (fecha) => {
     }
 }
 
+/**
+ * Obtiene el valor de un campo de la posición  
+ */
 const getValueByField = async (id, field) => {
     try {
         const posicion = await Posicion.findByPk(id);

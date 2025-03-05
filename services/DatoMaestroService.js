@@ -1,5 +1,8 @@
 const DatoMaestro = require('../models/DatoMaestro');
 
+/**
+ * Obtiene todos los datos maestros
+ */
 const getAll = async () => {
     try {
         return await DatoMaestro.findAll();
@@ -8,6 +11,9 @@ const getAll = async () => {
     }
 };
 
+/**
+ * Obtiene un dato maestro por su id 
+ */
 const getById = async (id) => {
     try {
         const datoMaestro = await DatoMaestro.findByPk(id);
@@ -21,6 +27,9 @@ const getById = async (id) => {
     }
 };  
 
+/**
+ * Crea un dato maestro 
+ */
 const create = async (data) => {
     try {
         data.fechaAlta = new Date();
@@ -31,6 +40,9 @@ const create = async (data) => {
     }
 }
 
+/**
+ * Actualiza un dato maestro  
+ */
 const update = async (id, data) => {
     try {
         const dato = await DatoMaestro.findByPk(id);
@@ -44,6 +56,9 @@ const update = async (id, data) => {
     }
 }
 
+/**
+ * Da de baja un dato maestro 
+ */
 const baja = async (id) => {
     try {
         const dato = await DatoMaestro.findByPk(id);
@@ -58,6 +73,9 @@ const baja = async (id) => {
     }
 }
 
+/**
+ * Da de alta un dato maestro  
+ */
 const alta = async (id) => {
     try {
         const dato = await DatoMaestro.findByPk(id);
