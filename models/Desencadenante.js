@@ -1,55 +1,61 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const Desencadenante = sequelize.define('Desencadenante', {
+const Desencadenante = sequelize.define(
+  "Desencadenante",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING(250),
+      allowNull: false,
     },
     codigo: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     tabla: {
-        type: DataTypes.STRING,
-        allowNull: true,
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      field: "tabla_nombre",
     },
-    query: {
-        type: DataTypes.STRING,
-        allowNull: true,
+    consultaSql: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      field: "consulta_sql",
     },
     fechaAlta: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        field: 'fecha_alta',
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: "fecha_alta",
     },
     fechaBaja: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        field: 'fecha_baja',
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: "fecha_baja",
     },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: true,
-      field: 'creado',
+      field: "creado",
     },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: true,
-      field: 'modificado',
-    }
-},{
-    tableName: 'desencadenantes',
+      field: "modificado",
+    },
+  },
+  {
+    tableName: "desencadenantes",
     timestamps: true,
-});
+  }
+);
 
 module.exports = Desencadenante;
