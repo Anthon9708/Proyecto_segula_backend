@@ -17,7 +17,6 @@ app.use(
 
 // Middleware para parsear solicitudes JSON
 app.use(express.json());
-app.use("/api/iolocate", routes);
 
 // Configuración de las rutas de la aplicación
 app.use("/", routes);

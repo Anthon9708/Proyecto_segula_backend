@@ -1,8 +1,8 @@
 const axios = require("axios");
 
 const IOLOCATE_BASE_URL = "https://api.iolocate.io";
-const USERNAME = "monolitic"; // Solicítalo a support@iolocate.io
-const PASSWORD = "Monol1tic!"; // Solicítalo a support@iolocate.io
+const USERNAME = "monolitic";
+const PASSWORD = "Monol1tic!";
 
 class IoLocateService {
   constructor() {
@@ -11,14 +11,16 @@ class IoLocateService {
 
   async authenticate() {
     try {
-      const response = await axios.post(`${IOLOCATE_BASE_URL}/api/auth/token`, {
-        username: USERNAME,
-        password: PASSWORD,
+      const response = await axios.post(`${IOLOCATE_BASE_URL}/api/b2b/login`, {
+        UserName: USERNAME,
+        Password: PASSWORD,
       });
 
-      if (response.data) {
-        this.accessToken = response.data.token;
-        console.log("🔐 Token obtenido correctamente");
+      console.log("🔹 Respuesta de autenticación:", response.data);
+
+      if (response.data && response.data.AccessToken) {
+        this.accessToken = response.data.AccessToken;
+        console.log("🔐 Token obtenido correctamente:", this.accessToken);
         return this.accessToken;
       } else {
         throw new Error("No se recibió un token válido");
@@ -36,9 +38,12 @@ class IoLocateService {
     if (!this.accessToken) await this.authenticate();
 
     try {
-      const response = await axios.get(`${IOLOCATE_BASE_URL}/api/companies`, {
-        headers: { Authorization: `Bearer ${this.accessToken}` },
-      });
+      const response = await axios.get(
+        `${IOLOCATE_BASE_URL}/api/b2b/companies`,
+        {
+          headers: { "X-ApiToken": this.accessToken },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -55,9 +60,9 @@ class IoLocateService {
 
     try {
       const response = await axios.get(
-        `${IOLOCATE_BASE_URL}/api/companies/${companyId}/devices`,
+        `${IOLOCATE_BASE_URL}/api/b2b/companies/${companyId}/devices`,
         {
-          headers: { Authorization: `Bearer ${this.accessToken}` },
+          headers: { "X-ApiToken": this.accessToken },
         }
       );
 
@@ -71,15 +76,14 @@ class IoLocateService {
     }
   }
 
-  async getHistoryByDeviceId(deviceId, from, to) {
+  async getHistoryByDeviceId(companyId, deviceId) {
     if (!this.accessToken) await this.authenticate();
 
     try {
       const response = await axios.get(
-        `${IOLOCATE_BASE_URL}/api/devices/${deviceId}/history`,
+        `${IOLOCATE_BASE_URL}/api/b2b/companies/${companyId}/devices/${deviceId}/logs`,
         {
-          params: { from, to },
-          headers: { Authorization: `Bearer ${this.accessToken}` },
+          headers: { "X-ApiToken": this.accessToken },
         }
       );
 
