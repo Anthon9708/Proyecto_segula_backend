@@ -162,7 +162,7 @@ const procesarReglas = async (fechaActivos, fechaPosiciones) => {
       let desencadenante = await DesencadenanteService.getById(
         regla.desencadenante
       );
-      let query = desencadenante.consultaSql + " AND modificado > '";
+      let query = desencadenante.query + " AND modificado > '";
       query +=
         desencadenante.tabla == "activos"
           ? formattedFechaActivos

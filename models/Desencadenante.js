@@ -24,12 +24,10 @@ const Desencadenante = sequelize.define(
     tabla: {
       type: DataTypes.STRING(50),
       allowNull: true,
-      field: "tabla_nombre",
     },
-    consultaSql: {
+    query: {
       type: DataTypes.TEXT,
       allowNull: true,
-      field: "consulta_sql",
     },
     fechaAlta: {
       type: DataTypes.DATE,

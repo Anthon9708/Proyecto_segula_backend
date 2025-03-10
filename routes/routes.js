@@ -6,7 +6,7 @@ const DesencadenanteController = require("../controllers/DesencadenanteControlle
 const ActivoController = require("../controllers/ActivoController");
 const PosicionController = require("../controllers/PosicionController");
 const LogController = require("../controllers/LogController");
-const IoLocateService = require("../services/IolocateService");
+const IolocateController = require("../controllers/IolocateController")
 const router = express.Router();
 
 // Rutas para 'reglas'
@@ -76,41 +76,8 @@ router.put("/logs/alta/:id", LogController.alta);
 
 // IOLOCATE RUTAS
 
-// obtener compañias
-router.get("/companies", async (req, res) => {
-  try {
-    const companies = await IoLocateService.getCompanies();
-    res.json(companies);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Obtener dispositivos por empresa
-router.get("/companies/:companyId/devices", async (req, res) => {
-  try {
-    const { companyId } = req.params;
-    const devices = await IoLocateService.getDevicesByCompanyId(companyId);
-    res.json(devices);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Obtener historial por dispositivo
-router.get("/devices/:deviceId/history", async (req, res) => {
-  try {
-    const { deviceId } = req.params;
-    const { from, to } = req.query;
-    const history = await IoLocateService.getHistoryByDeviceId(
-      deviceId,
-      from,
-      to
-    );
-    res.json(history);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.get("/companies", IolocateController.getCompanies); 
+router.get("/companies/:companyId/devices", IolocateController.getDeviceId);
+router.get("/devices/:deviceId/history", IolocateController.getDeviceIdHistory);
 
 module.exports = router;
