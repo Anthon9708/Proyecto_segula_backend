@@ -1,12 +1,13 @@
 const express = require("express");
 const sequelize = require("./config/database");
+require("dotenv").config();
 const routes = require("./routes/routes");
 const cors = require("cors");
 const conexionBD = require("./bd/ConexionBD");
 const MainController = require("./controllers/MainController");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // Configuración de CORS para permitir solicitudes desde 'http://localhost:5173'
 app.use(

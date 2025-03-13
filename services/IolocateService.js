@@ -1,8 +1,8 @@
 const axios = require("axios");
 
-const IOLOCATE_BASE_URL = "https://api.iolocate.io";
-const USERNAME = "monolitic";
-const PASSWORD = "Monol1tic!";
+const IOLOCATE_BASE_URL = process.env.IOLOCATE_BASE_URL;
+const USERNAME = process.env.USER_NAME;
+const PASSWORD = process.env.PASSWORD;
 
 class IoLocateService {
   constructor() {
@@ -16,18 +16,18 @@ class IoLocateService {
         Password: PASSWORD,
       });
 
-      console.log("🔹 Respuesta de autenticación:", response.data);
+      console.log("Respuesta de autenticación:", response.data);
 
       if (response.data && response.data.AccessToken) {
         this.accessToken = response.data.AccessToken;
-        console.log("🔐 Token obtenido correctamente:", this.accessToken);
+        console.log("Token obtenido correctamente:", this.accessToken);
         return this.accessToken;
       } else {
         throw new Error("No se recibió un token válido");
       }
     } catch (error) {
       console.error(
-        "❌ Error al autenticar con IoLocate API:",
+        "Error al autenticar con IoLocate API:",
         error.response?.data || error.message
       );
       throw error;
@@ -48,7 +48,7 @@ class IoLocateService {
       return response.data;
     } catch (error) {
       console.error(
-        "❌ Error al obtener compañías:",
+        "Error al obtener compañías:",
         error.response?.data || error.message
       );
       throw error;
@@ -69,7 +69,7 @@ class IoLocateService {
       return response.data;
     } catch (error) {
       console.error(
-        "❌ Error al obtener dispositivos:",
+        "Error al obtener dispositivos:",
         error.response?.data || error.message
       );
       throw error;
@@ -90,7 +90,7 @@ class IoLocateService {
       return response.data;
     } catch (error) {
       console.error(
-        "❌ Error al obtener historial:",
+        "Error al obtener historial:",
         error.response?.data || error.message
       );
       throw error;
